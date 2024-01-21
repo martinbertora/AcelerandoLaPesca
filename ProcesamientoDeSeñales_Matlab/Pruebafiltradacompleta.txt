@@ -1,0 +1,290 @@
+clc
+clear all
+close all
+load('senialesPrueba3')
+%% Definicion de variables
+muestreo=pique44pi.muestreo';
+n=length(muestreo);
+tiempo=zeros(1,n);
+tiempo(1)=0;
+%  for i=2:n
+% tiempo(i)=(muestreo(i)+tiempo(i-1));
+%  end
+ for i=2:n
+tiempo(i)=tiempo(i-1)+5;
+ end
+ Fs=200;
+
+ACX=pique44pi.ACX';
+ACY=pique44pi.ACY';
+ACZ=pique44pi.ACZ';
+
+SUMA=ACX+ACY+ACZ;
+for i=1:n
+SUMACUA(i)=(ACX(i)^2+ACY(i)^2+ACZ(i)^2)^(0.5);
+end
+%% Filtrado
+%filtro butter 20 hz
+m=10;%orden del filtro
+wn=20/(Fs/2);
+[b,a] = butter(m,wn,'High');
+ACZ=ACZ';
+x20 = filter(b,a,ACZ);
+
+%filtro butter 25 hz
+m=10;%orden del filtro
+wn=25/(Fs/2);
+[b,a] = butter(m,wn,'High');
+x25 = filter(b,a,ACZ);
+
+%filtro butter 30 hz
+m=10;%orden del filtro
+wn=30/(Fs/2);
+[b,a] = butter(m,wn,'High');
+x30 = filter(b,a,ACZ);
+
+%filtro butter 35 hz
+m=10;%orden del filtro
+wn=35/(Fs/2);
+[b,a] = butter(m,wn,'High');
+x35 = filter(b,a,ACZ);
+
+%% Filtrado y ploteo (20 25 30 35)hz
+p=[20 25 30 35];
+n=length(p);
+
+%Filtro Gauss
+w=gausswin(64,1);
+ACZ=ACZ';
+t=tiempo';
+figure()
+for i=1:n
+    %filtro butter
+    m=10;%orden del filtro
+    wn=(p(i))/(Fs/2);
+    [b,a] = butter(m,wn,'High');
+    x = filter(b,a,ACZ);
+    x=abs(x);
+    x=filtfilt(w/sum(w),1,x); %filtro de Gauss
+    hold on
+    plot(t,x);
+end
+legend('y20', 'y25','y30','y35');
+hold off
+%% Plot de las 3 aceleraciones, la suma y la suma cuadratica
+% figure()
+% plot(tiempo,ACX);
+% hold on
+% plot(tiempo,ACY);
+% plot(tiempo,ACZ);
+% title('Prueba Ducha');
+% % Agregar una leyenda
+% legend('ACX', 'ACY', 'ACZ');
+% figure()
+% plot(tiempo,SUMA);
+% hold on
+% plot(tiempo,x);
+% title('Prueba Ducha');
+% legend('SUMA', 'SUMACUA');
+% 
+% %Calculo y plot Wavelets
+% figure()
+% %x=x-10;
+% y=x';
+% t=tiempo';
+% cfs = cwt(y,1000);
+% subplot(2,1,1);
+% plot(t,10*abs(cfs(1,:)),'LineWidth',2)
+% hold on
+% plot(t,y)
+% title('Wavelets Prueba olas');
+% hold off
+% [cfs,f] = cwt(y,Fs);
+% subplot(2,1,2);
+% imagesc(t,f,abs(cfs*100))
+% xlabel("Time (s)")
+% ylabel("Frequency (Hz)")
+% axis xy
+% title("Analisis espectral")
+
+%% Potencia de ACZ filtrada
+x20=abs(x20);
+%Filtro Gauss
+w=gausswin(64,1);
+y20=filtfilt(w/sum(w),1,x20);
+
+x25=abs(x25);
+%Filtro Gauss
+w=gausswin(64,1);
+y25=filtfilt(w/sum(w),1,x25);
+
+x30=abs(x30);
+%Filtro Gauss
+w=gausswin(64,1);
+y30=filtfilt(w/sum(w),1,x30);
+
+x35=abs(x35);
+%Filtro Gauss
+w=gausswin(64,1);
+y35=filtfilt(w/sum(w),1,x35);
+
+figure()
+t=tiempo';
+plot(t,y20);
+hold on
+plot(t,y25);
+plot(t,y30);
+plot(t,y35);
+legend('y20', 'y25','y30','y35');
+hold off
+%%
+fs = 200; % Frecuencia de muestreo en Hz
+x=ACZ;
+% Parámetros para pwelch
+window = hamming(256); % Ventana de Hamming (puedes elegir otra)
+noverlap = 128; % Superposición entre ventanas (ajusta según necesites)
+nfft = 512; % Número de puntos de la FFT (ajusta según necesites)
+
+% Calcular la PSD
+[Pxx, f] = pwelch(x, window, noverlap, nfft, fs);
+
+% Gráfico de la PSD
+figure();
+plot(f, 10*log10(Pxx)); % Escala logarítmica en dB
+xlabel('Frecuencia (Hz)');
+ylabel('PSD (dB/Hz)');
+title('Densidad Espectral de Potencia pique');
+
+
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Senial 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Definicion de variables
+muestreo=olas3.muestreo';
+n=length(muestreo);
+tiempo=zeros(1,n);
+tiempo(1)=0;
+%  for i=2:n
+% tiempo(i)=(muestreo(i)+tiempo(i-1));
+%  end
+ for i=2:n
+tiempo(i)=tiempo(i-1)+5;
+ end
+ Fs=200;
+
+ACX=olas3.ACX';
+ACY=olas3.ACY';
+ACZ=olas3.ACZ';
+
+SUMA=ACX+ACY+ACZ;
+for i=1:n
+SUMACUA(i)=(ACX(i)^2+ACY(i)^2+ACZ(i)^2)^(0.5);
+end
+%% Filtrado
+%filtro butter 20 hz
+m=10;%orden del filtro
+wn=20/(Fs/2);
+[b,a] = butter(m,wn,'High');
+ACZ=ACZ';
+x20 = filter(b,a,ACZ);
+
+%filtro butter 25 hz
+m=10;%orden del filtro
+wn=25/(Fs/2);
+[b,a] = butter(m,wn,'High');
+x25 = filter(b,a,ACZ);
+
+%filtro butter 30 hz
+m=10;%orden del filtro
+wn=30/(Fs/2);
+[b,a] = butter(m,wn,'High');
+x30 = filter(b,a,ACZ);
+
+%filtro butter 35 hz
+m=10;%orden del filtro
+wn=35/(Fs/2);
+[b,a] = butter(m,wn,'High');
+x35 = filter(b,a,ACZ);
+%% Plot de las 3 aceleraciones, la suma y la suma cuadratica
+% figure()
+% plot(tiempo,ACX);
+% hold on
+% plot(tiempo,ACY);
+% plot(tiempo,ACZ);
+% title('Prueba Ducha');
+% % Agregar una leyenda
+% legend('ACX', 'ACY', 'ACZ');
+% figure()
+% plot(tiempo,SUMA);
+% hold on
+% plot(tiempo,x);
+% title('Prueba Ducha');
+% legend('SUMA', 'SUMACUA');
+% 
+% %Calculo y plot Wavelets
+% figure()
+% %x=x-10;
+% y=x';
+% t=tiempo';
+% cfs = cwt(y,1000);
+% subplot(2,1,1);
+% plot(t,10*abs(cfs(1,:)),'LineWidth',2)
+% hold on
+% plot(t,y)
+% title('Wavelets Prueba olas');
+% hold off
+% [cfs,f] = cwt(y,Fs);
+% subplot(2,1,2);
+% imagesc(t,f,abs(cfs*100))
+% xlabel("Time (s)")
+% ylabel("Frequency (Hz)")
+% axis xy
+% title("Analisis espectral")
+
+%% Potencia de ACZ filtrada
+x20=abs(x20);
+%Filtro Gauss
+w=gausswin(64,1);
+y20=filtfilt(w/sum(w),1,x20);
+
+x25=abs(x25);
+%Filtro Gauss
+w=gausswin(64,1);
+y25=filtfilt(w/sum(w),1,x25);
+
+x30=abs(x30);
+%Filtro Gauss
+w=gausswin(64,1);
+y30=filtfilt(w/sum(w),1,x30);
+
+x35=abs(x35);
+%Filtro Gauss
+w=gausswin(64,1);
+y35=filtfilt(w/sum(w),1,x35);
+
+figure()
+t=tiempo';
+plot(t,y20);
+hold on
+plot(t,y25);
+plot(t,y30);
+plot(t,y35);
+legend('y20', 'y25','y30','y35');
+hold off
+%%
+fs = 200; % Frecuencia de muestreo en Hz
+x=ACZ;
+% Parámetros para pwelch
+window = hamming(256); % Ventana de Hamming (puedes elegir otra)
+noverlap = 128; % Superposición entre ventanas (ajusta según necesites)
+nfft = 512; % Número de puntos de la FFT (ajusta según necesites)
+
+% Calcular la PSD
+[Pxx, f] = pwelch(x, window, noverlap, nfft, fs);
+
+% Gráfico de la PSD
+figure();
+plot(f, 10*log10(Pxx)); % Escala logarítmica en dB
+xlabel('Frecuencia (Hz)');
+ylabel('PSD (dB/Hz)');
+title('Densidad Espectral de Potencia pique');

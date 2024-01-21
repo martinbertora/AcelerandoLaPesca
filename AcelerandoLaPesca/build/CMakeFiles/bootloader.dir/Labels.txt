@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+D:/Proyectointegrador1/programaenC/AcelerandoLaPesca/build/CMakeFiles/bootloader
+D:/Proyectointegrador1/programaenC/AcelerandoLaPesca/build/CMakeFiles/bootloader.rule
+D:/Proyectointegrador1/programaenC/AcelerandoLaPesca/build/CMakeFiles/bootloader-complete.rule
+D:/Proyectointegrador1/programaenC/AcelerandoLaPesca/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+D:/Proyectointegrador1/programaenC/AcelerandoLaPesca/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+D:/Proyectointegrador1/programaenC/AcelerandoLaPesca/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+D:/Proyectointegrador1/programaenC/AcelerandoLaPesca/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+D:/Proyectointegrador1/programaenC/AcelerandoLaPesca/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+D:/Proyectointegrador1/programaenC/AcelerandoLaPesca/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+D:/Proyectointegrador1/programaenC/AcelerandoLaPesca/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule

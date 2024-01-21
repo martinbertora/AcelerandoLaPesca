@@ -1,0 +1,3 @@
+La prueba1 contiene piques hechos a mano cada 10 segundos aprox
+la prueba2 contiene pique cada 10 seg pero con olas generadas a mano y secuencias de 3 piques de menos potencia rapidos
+la prueba3 contiene los mismos piques secuenciales pero con oleaje
