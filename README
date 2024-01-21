@@ -1,1 +1,7 @@
-README
+Detector de Pique de peces en entorno fluviales utilizando un Acelerómetro
+
+En este repositorio se encuantra todo el proyecto "Acelerando La Pesca", el cual se encuentra explicado detalladamente en 
+el Informe Final presente. 
+
+Ademas se encuentran todos los codigos utilizados (ArduinoIDE y C), imagenes y videos de las pruebas realizadas, el 
+analisis de los datos obtenidos en Matlab y sus resultados.
